@@ -4,9 +4,13 @@ const app = express();
 const ejs = require("ejs")
 
 app.set('view engine','ejs');
-
+app.use("/", express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: true}))
-app.use(express.static('public'))
+// app.use(express.static('public'))
+
+app.get('/',(req,res)=>{
+    res.sendFile(__dirname+'/public/html/homepage.html')
+});
 
 
 
