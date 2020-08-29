@@ -9,8 +9,12 @@ app.use(bodyParser.urlencoded({ extended: true}))
 // app.use(express.static('public'))
 
 app.get('/',(req,res)=>{
-    res.sendFile(__dirname+'/public/html/homepage.html')
+    res.render('midhome');
+    // res.sendFile(__dirname+'/public/html/homepage.html')
 });
+app.post('/',(req,res)=>{
+    res.render("home");
+})
 
 
 
