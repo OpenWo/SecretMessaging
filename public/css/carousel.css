@@ -132,8 +132,8 @@ body {
     }
   @media (min-width: 100em){
     .carousel{
-      margin-left: 18%;
-      margin-right: 18%;
+      margin-left: 20%;
+      margin-right: 20%;
       /* padding-right: 10%; */
     }
     
