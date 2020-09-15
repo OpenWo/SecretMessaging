@@ -1,3 +1,4 @@
+// ES6
 const express = require("express")
 const bodyParser = require("body-parser")
 // const session = require('express-session');
@@ -5,14 +6,19 @@ const passport = require("passport");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const cookieSession = require('cookie-session')
 const app = express();
+const server=require('http').Server(app);
+const io=require('socket.io')(server);
+const stream = require('./src/connect/stream')
 const ejs = require("ejs")
+let path = require( 'path' );
 const cors = require('cors')
-
 app.set('view engine','ejs');
 app.use("/", express.static(__dirname));
 app.use(bodyParser.urlencoded({ extended: true}))
-// app.use(express.static('public'))
-// require('./passport-setup');
+
+app.use( '/public/connect', express.static( path.join( __dirname, 'connect' ) ) );
+
+// console.log(call())
 
 app.use(cors())
 
@@ -95,11 +101,15 @@ app.get("/logout",(req,res)=>{
 
 app.get("/secrets",isLoggedIn,(req,res)=>{
   // if(req.isAuthenticated()){
-    res.render('secret');
+    // res.sendFile(__dirname+"/index.html")
+    // res.render("index")
+        res.sendFile(__dirname+"/src/connect/index.html")
   // }
   // else{
   //   res.redirect('/login');
   // }
 });
+
+io.of('/stream').on('connection', stream )
 
 app.listen(3000||process.env.PORT,()=>console.log("server running at port 3000"))
